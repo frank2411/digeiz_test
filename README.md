@@ -42,31 +42,6 @@ Usage
 *Remember only to follow those instructions after editing the source code to bootstrap your new
 project.*
 
-Installation
-============
-
-Set up your virtualenv, then install the package in development mode, including the extra
-development and testing dependencies::
-
-   pip install -e '.[dev,test]'
-
-Testing
-=======
-
-From your virtualenv, you may start the full test suite using the following command::
-
-   tox
-
-You also may only run a subset of the test suite by overriding the default `tox` environments to
-create and execute::
-
-   tox -e py36,coverage
-
-Here is a listing of supported `tox` environments that complement the `default ones <https://tox.readthedocs.io/en/latest/example/basic.html#a-simple-tox-ini-default-environments>`_:
-
-* ``coverage``: Merges all default test environments-issues coverage files and generates both a CLI and XML report. Fails if coverage is under 100%
-* ``safety``: Runs the `Safety <https://pyup.io/safety/>`_ checker against all project
-  dependencies. Fails if any security vulnerability is found.
 
 Licensing
 *********
