@@ -12,15 +12,29 @@ class TestGetAccounts:
 
     def test_add_account_valid(self, client, db, account):
 
-        data = {
+        data = [{
             "name": "test_account 2"
-        }
+        }]
 
         response = client.post('/api/accounts', json=data)
         accounts = Account.query.count()
 
         assert response.status_code == 201
         assert accounts == 2
+
+    def test_add_accounts_valid(self, client, db, account):
+
+        data = [
+            {"name": "test_account 2"},
+            {"name": "test_account 3"},
+            {"name": "test_account 4"},
+        ]
+
+        response = client.post('/api/accounts', json=data)
+        accounts = Account.query.count()
+
+        assert response.status_code == 201
+        assert accounts == 4
 
     def test_add_account_not_valid(self, client, db, account):
 

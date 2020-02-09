@@ -15,15 +15,17 @@ class Accounts(Resource):
         return {"accounts": schema.dump(accounts)}, 200
 
     def post(self):
-        schema = AccountSchema()
+        schema = AccountSchema(many=True)
 
         try:
-            account = schema.load(request.json)
+            accounts = schema.load(request.json)
         except ValidationError as err:
             return err.messages, 422
 
-        account.save()
-        return {'message': 'Account created', 'account': schema.dump(account)}, 201
+        schema.session.add_all(accounts)
+        schema.session.commit()
+
+        return {'message': 'Account created', 'account': schema.dump(accounts)}, 201
 
 
 class AccountsDetail(Resource):
