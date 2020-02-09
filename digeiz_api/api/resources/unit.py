@@ -15,15 +15,17 @@ class Units(Resource):
         return {"units": schema.dump(units)}, 200
 
     def post(self):
-        schema = UnitSchema()
+        schema = UnitSchema(many=True)
 
         try:
-            unit = schema.load(request.json)
+            units = schema.load(request.json)
         except ValidationError as err:
             return err.messages, 422
 
-        unit.save()
-        return {'message': 'Unit created', 'unit': schema.dump(unit)}, 201
+        schema.session.add_all(units)
+        schema.session.commit()
+
+        return {'message': 'Unit created', 'units': schema.dump(units)}, 201
 
 
 class UnitsDetail(Resource):

@@ -10,12 +10,12 @@ class TestGetUnits:
         assert response.status_code == 200
         assert len(response_json["units"]) == 1
 
-    def test_add_units_valid(self, client, db, mall, unit):
+    def test_add_unit_valid(self, client, db, mall, unit):
 
-        data = {
-            "name": "test_account 2",
+        data = [{
+            "name": "test_unit 2",
             "mall": mall.id
-        }
+        }]
 
         response = client.post('/api/units', json=data)
         units_count = Unit.query.count()
@@ -23,6 +23,29 @@ class TestGetUnits:
 
         assert response.status_code == 201
         assert units_count == 2
+
+        for unit in units:
+            assert unit.mall_id == mall.id
+
+    def test_add_units_valid(self, client, db, mall, unit):
+
+        data = [
+            {
+                "name": "test_unit 2",
+                "mall": mall.id
+            },
+            {
+                "name": "test_unit 3",
+                "mall": mall.id
+            },
+        ]
+
+        response = client.post('/api/units', json=data)
+        units_count = Unit.query.count()
+        units = Unit.query.all()
+
+        assert response.status_code == 201
+        assert units_count == 3
 
         for unit in units:
             assert unit.mall_id == mall.id

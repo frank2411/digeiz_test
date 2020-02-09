@@ -10,12 +10,12 @@ class TestGetMalls:
         assert response.status_code == 200
         assert len(response_json["malls"]) == 1
 
-    def test_add_malls_valid(self, client, db, account, mall):
+    def test_add_mall_valid(self, client, db, account, mall):
 
-        data = {
-            "name": "test_account 2",
+        data = [{
+            "name": "test_mall 2",
             "account": account.id
-        }
+        }]
 
         response = client.post('/api/malls', json=data)
         malls_count = Mall.query.count()
@@ -23,6 +23,29 @@ class TestGetMalls:
 
         assert response.status_code == 201
         assert malls_count == 2
+
+        for mall in malls:
+            assert mall.account_id == account.id
+
+    def test_add_malls_valid(self, client, db, account, mall):
+
+        data = [
+            {
+                "name": "test_mall 2",
+                "account": account.id
+            },
+            {
+                "name": "test_mall 2",
+                "account": account.id
+            },
+        ]
+
+        response = client.post('/api/malls', json=data)
+        malls_count = Mall.query.count()
+        malls = Mall.query.all()
+
+        assert response.status_code == 201
+        assert malls_count == 3
 
         for mall in malls:
             assert mall.account_id == account.id

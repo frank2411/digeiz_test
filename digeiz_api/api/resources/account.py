@@ -25,7 +25,7 @@ class Accounts(Resource):
         schema.session.add_all(accounts)
         schema.session.commit()
 
-        return {'message': 'Account created', 'account': schema.dump(accounts)}, 201
+        return {'message': 'Account created', 'accounts': schema.dump(accounts)}, 201
 
 
 class AccountsDetail(Resource):

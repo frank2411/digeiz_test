@@ -15,15 +15,17 @@ class Malls(Resource):
         return {"malls": schema.dump(malls)}, 200
 
     def post(self):
-        schema = MallSchema()
+        schema = MallSchema(many=True)
 
         try:
-            mall = schema.load(request.json)
+            malls = schema.load(request.json)
         except ValidationError as err:
             return err.messages, 422
 
-        mall.save()
-        return {'message': 'Mall created', 'mall': schema.dump(mall)}, 201
+        schema.session.add_all(malls)
+        schema.session.commit()
+
+        return {'message': 'Mall created', 'malls': schema.dump(malls)}, 201
 
 
 class MallsDetail(Resource):
