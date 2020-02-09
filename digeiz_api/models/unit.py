@@ -3,5 +3,5 @@ from .db import db, BaseModel
 
 class Unit(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(128))
+    name = db.Column(db.String(128), nullable=False)
     mall_id = db.Column(db.Integer, db.ForeignKey("mall.id", ondelete="CASCADE"), nullable=False)

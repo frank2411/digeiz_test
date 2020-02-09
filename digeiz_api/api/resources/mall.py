@@ -36,7 +36,7 @@ class MallsDetail(Resource):
         if not mall:
             return {"message": "Mall not found"}, 404
 
-        return {"unit": schema.dump(mall)}, 200
+        return {"mall": schema.dump(mall)}, 200
 
     def delete(self, mall_id):
         mall = Mall.query.filter_by(id=mall_id).one_or_none()

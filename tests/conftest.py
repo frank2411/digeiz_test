@@ -1,6 +1,6 @@
 import pytest
 from digeiz_api.app import create_app
-from digeiz_api.models import db as _db
+from digeiz_api.models.db import db as _db
 from digeiz_api.models import Account, Mall, Unit
 
 
@@ -37,19 +37,17 @@ def account(db):
     return account
 
 
-# @pytest.fixture
-# def mall(db):
-#     company = Company(name="Flowlity", email="@flowlity.com")
-#     db.session.add(company)
-#     db.session.commit()
+@pytest.fixture
+def mall(db, account):
+    mall = Mall(name="test mall", account_id=account.id)
+    db.session.add(mall)
+    db.session.commit()
+    return mall
 
-#     return company
 
-
-# @pytest.fixture
-# def unit(db):
-#     company = Company(name="Flowlity", email="@flowlity.com")
-#     db.session.add(company)
-#     db.session.commit()
-
-#     return company
+@pytest.fixture
+def unit(db, mall):
+    unit = Unit(name="test unit", mall_id=mall.id)
+    db.session.add(unit)
+    db.session.commit()
+    return mall

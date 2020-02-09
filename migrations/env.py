@@ -22,7 +22,7 @@ logger = logging.getLogger('alembic.env')
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from flask import current_app
-from test_api.models import *
+from digeiz_api.models import *
 
 config.set_main_option(
     'sqlalchemy.url', current_app.config.get(

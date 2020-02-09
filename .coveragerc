@@ -1,2 +1,2 @@
 [run]
-omit = wsgi.py, .tox/*, tests/*, setup.py, *__init__.py, test_api/app.py, test_api/config.py, test_api/*
+omit = wsgi.py, .tox/*, tests/*, setup.py, *__init__.py, digeiz_api/app.py, digeiz_api/config.py, digeiz_api/models/db.py
