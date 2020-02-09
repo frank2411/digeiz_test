@@ -14,50 +14,25 @@
 
 """Setuptools-backed setup module."""
 
-import codecs
-import os
-
 import setuptools
+from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
-if __name__ == '__main__':
-    ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
 
-    # Use README.rst as source for setuptools.setup's long_description param
-    with codecs.open(os.path.join(ROOT_DIR, 'README.rst'),
-                     encoding='utf-8') as f:
-        LONG_DESCRIPTION = f.read()
-
-    setuptools.setup(
-        # Distutils parameters
-        name='project_name',
-        description='Placeholder description',
-        long_description=LONG_DESCRIPTION,
-        author="Mickaël 'lastmikoi' FALCK",
-        author_email='lastmikoi@lastmikoi.net',
-        url='https://github.com/lastmikoi/python-project-boilerplate/',
-        packages=setuptools.find_packages(exclude=['tests']),
-        classifiers=[
-            'Programming Language :: Python :: 3',
-        ],
-        license='CC0 1.0 Universal',
-        keywords='python project boilerplate skeleton template',
-        # Setuptools parameters
-        include_package_data=True,
-        install_requires=[
-        ],
-        extras_require={
-            'dev': [
-                'ipython>=7.2.0,<8',
-            ],
-            'test': [
-                'tox>=3.5.3,<4',
-                'pytest>=4.0.1,<5',
-                'pytest-mock>=1.10.0,<2',
-            ],
-        },
-        python_requires='>=3.6,<4',
-        setup_requires=['setuptools_scm'],
-        # setuptools_scm parameters
-        use_scm_version=True,
-    )
+setup(
+    name="digeiz_test",
+    version="0.1",
+    author="Francesco Perna",
+    description="A small example package",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/frank2410/digeiz_test",
+    python_requires=">=3.6",
+    package_dir={"digeiz_test": "digeiz_api"},
+    packages=setuptools.find_packages(exclude=["tests"]),
+    install_requires=requirements,
+)
